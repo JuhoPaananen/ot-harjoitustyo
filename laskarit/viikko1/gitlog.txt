@@ -1,0 +1,104 @@
+commit 102dbc948278673ad8877607d430d93e8b8ef9c0
+Author: Juho <JuhoPaananen@users.noreply.github.com>
+Date:   Sat Nov 5 16:59:03 2022 +0200
+
+    poista ja uudelleennimeä
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 703ff97b8613e411b60ba74519de0ef2fb25b79f
+Author: Juho <JuhoPaananen@users.noreply.github.com>
+Date:   Sat Nov 5 16:56:26 2022 +0200
+
+    luo tiedostoja
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 50f183323e540ab9a199632d526deddc5fe90e3b
+Author: Juho <JuhoPaananen@users.noreply.github.com>
+Date:   Sat Nov 5 16:51:24 2022 +0200
+
+    muokkaa ekaa ja kolmatta
+
+ eka.txt    | 2 +-
+ kolmas.txt | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit cd1bb9d5aa3aff271b5ee52caaa4ee4a6656c254
+Author: Juho <JuhoPaananen@users.noreply.github.com>
+Date:   Sat Nov 5 16:49:12 2022 +0200
+
+    uudelleennimeä tiedosto.txt
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 328b97d7577fbc2ec61ab634a7601383b9a84daf
+Author: Juho <JuhoPaananen@users.noreply.github.com>
+Date:   Sat Nov 5 16:48:02 2022 +0200
+
+    poista toinen.txt
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 776b44873bb9fa882d09ca4350be45706b6eb1e9
+Author: Juho <JuhoPaananen@users.noreply.github.com>
+Date:   Sat Nov 5 16:44:57 2022 +0200
+
+    muokkaa tiedosto.txt sisältö
+
+ tiedosto.txt | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+commit 989c8a1ac06faa6b18d5aec154dda5c7604d330f
+Author: Juho <JuhoPaananen@users.noreply.github.com>
+Date:   Sat Nov 5 16:42:22 2022 +0200
+
+    lisää paljon tekstiä
+
+ tiedosto.txt | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+commit 74fa7f0b1c1f2262119f59eebab1ca7a5b16e9c9
+Author: Juho <JuhoPaananen@users.noreply.github.com>
+Date:   Sat Nov 5 16:36:29 2022 +0200
+
+    luo stuff kansio
+
+ stuff/joku_tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 75eae4bcb07af5ab15ee17c1d5bf8da3bdef0292
+Author: Juho <JuhoPaananen@users.noreply.github.com>
+Date:   Sat Nov 5 16:35:24 2022 +0200
+
+    muuta toinen.txt ja kolmas.txt
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit b7b75cfa038c35adce8e4595871fb0903d431a0e
+Author: Juho <JuhoPaananen@users.noreply.github.com>
+Date:   Sat Nov 5 15:30:28 2022 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit d26f561d17ee7eda442c12dd360805bf2e72f23f
+Author: Juho <JuhoPaananen@users.noreply.github.com>
+Date:   Sat Nov 5 15:27:58 2022 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
