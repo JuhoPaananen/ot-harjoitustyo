@@ -21,6 +21,7 @@ Peli käynnistyy aloitusvalikkoon, josta on mahdollista käynnistää uusi peli,
 - Pelaaja voi käynnistää uuden pelin
 
 ### Pelin aikana
+Pelin ensimmäisessä versiossa on toteutettu seuraavat perustoiminnallisuudet
 - Pelaaja voi liikkua vapaasti pelialueella näppäimistön nuolinäppäimillä
 - Alus kiihtyy hiljalleen huippunopeuteensa ja jarrutus on niin ikään porrastettu
 - Pelialueen rajan ylittäminen johtaa siirtymiseen pelialueen toiselle reunalle
