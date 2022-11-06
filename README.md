@@ -8,6 +8,8 @@
 
 [komentorivi.txt](https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/laskarit/viikko1/komentorivi.txt)
 
-Seuraavaksi merge-konfliktia
+### Viikko 2
 
-Muutos paikalliseen repositorioon.
+[vaatimusmäärittely.md](https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
+
+[tuntikirjanpito.md](https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/dokumentaatio/tuntikirjanpito.md)
