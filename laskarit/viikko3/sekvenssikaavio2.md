@@ -22,6 +22,17 @@ sequenceDiagram
 		deactivate rautatietori
 		main->>ratikka6: osta_lippu(kallen_kortti, 0)
 		activate ratikka6
+		ratikka6->>kallen_kortti: arvo()
+		kallen_kortti->>ratikka6: (3)
 		ratikka6->>kallen_kortti: vahenna_arvoa(1.5)
+		kallen_kortti-->>ratikka6: 
+		ratikka6->>main: True 
+		deactivate ratikka6
+		main->>bussi244: osta_lippu(kallen_kortti, 2)
+		activate bussi244
+		bussi244->>kallen_kortti: arvo()
+		kallen_kortti->>bussi244: (1.5)
+		bussi244->>main: False
+		deactivate bussi244
 		
 ```
