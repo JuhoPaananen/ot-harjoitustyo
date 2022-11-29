@@ -1,46 +1,31 @@
 import pygame
-from utils import load_image
-from pygame.math import Vector2 
-import math
-import os
-
-dirname = os.path.dirname(__file__)
 
 
 class Spaceship(pygame.sprite.Sprite):
 
     ROTATE_SPEED = 3
+    MAX_SPEED = 10
+    ACCELERATION = 0.5
+    BRAKING = 0.1
+    UP = (0, -1)
 
-    def __init__(self, x, y):
+    def __init__(self, width, height, image: pygame.surface):
         super().__init__()
-        #self.image = load_image("spaceship")
-        self.image = pygame.image.load(os.path.join(dirname, "..", "assets", "spaceship.png"))
-                
+        self.image = image
         self.rect = self.image.get_rect()
-        self.angle = math.radians(0)
-        
-    def moveRight(self, velocity):
-        self.rect.x += velocity
-    
-    def moveLeft(self, velocity):
-        self.rect.x -= velocity
+        self.rect.x = width/2 - self.rect.centerx
+        self.rect.y = height/2 - self.rect.centery
+        self.speed = 0
+        self.height = height
 
-    def moveUp(self, velocity):
-        self.rect.y += velocity
+    def accelerate(self):
+        self.speed += self.ACCELERATION
+        self.speed = min(self.speed, self.MAX_SPEED)
 
-    def moveDown(self, velocity):
-        self.rect.y -= velocity
+    def brake(self):
+        self.speed -= self.BRAKING
+        self.speed = max(self.speed, 0)
 
-    def moveX(self, velocity):
-        self.rect.x += velocity
-
-    def moveY(self, velocity):
-        self.rect.y += velocity
-
-    def rotateLeft(self):
-        self.image = pygame.transform.rotate(self.image, 3)
-        #self.angle += self.ROTATE_SPEED
-
-    def rotateRight(self):
-        self.image = pygame.transform.rotate(self.image, -3)
-        #self.angle -= self.ROTATE_SPEED
+    def move_y(self):
+        self.rect.y -= self.speed
+        self.rect.y = self.rect.y % self.height
