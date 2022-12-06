@@ -22,7 +22,6 @@ class Asteroids:
         self.initialize_game()
         self.myfont = load_font("Connection")
         self.initialize_sounds()
-        self.spaceship = Player((self.width/2,self.height/2))
         self.score = 0
         self.lives = 3
         self.is_gameover = False
@@ -44,6 +43,7 @@ class Asteroids:
         self.background_image = pygame.transform.scale(
             load_image("milkyway"), (self.width, self.height))
         self.is_gameover = False
+        self.spaceship = Player((self.width/2,self.height/2))
         self.asteroids = []
         for i in range (10):
             self.asteroid_factory(True)
