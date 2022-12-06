@@ -1,7 +1,7 @@
 import unittest
-from game.asteroids import Asteroids
+from game.asteroids import AsteroidsGame
 from utils import load_image
-from sprites.spaceship import Spaceship
+from sprites.objects import FlyingObject, Asteroid, Bullet, Player
 from index import main
 
 
@@ -13,7 +13,7 @@ class TestAsteroids(unittest.TestCase):
         self.assertEqual(type(self.spaceship), Spaceship)
 
 
-class TestSpaceship(unittest.TestCase):
+class TestObjects(unittest.TestCase):
     def setUp(self):
         self.spaceship = Spaceship(80, 50, load_image("spaceship"))
 
@@ -25,7 +25,7 @@ class TestSpaceship(unittest.TestCase):
 
 class TestIndex(unittest.TestCase):
     def setUp(self):
-        self.game = Asteroids()
+        self.game = AsteroidsGame()
 
     def test_game_initialized_correctly(self):
         self.assertEqual((self.game.width, self.game.height), (800, 640))

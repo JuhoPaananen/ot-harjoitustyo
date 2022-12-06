@@ -1,8 +1,8 @@
-from game.asteroids import Asteroids
+from game.asteroids import AsteroidsGame
 
 
 def main():
-    game = Asteroids()
+    game = AsteroidsGame()
     # add init settings
     # add ui
     game.gameloop()
