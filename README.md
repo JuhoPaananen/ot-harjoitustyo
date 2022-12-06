@@ -5,6 +5,7 @@ Pelin toiminta on testattu Python-versiolla 3.8
 
 ### Dokumentaatio
 - [Vaatimusmäärittely](https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/asteroids/dokumentaatio/vaatimusmaarittely.md)
+- [Arkkitehtuuri] (https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/asteroids/dokumentaatio/arkkitehtuuri.md)
 - [Tuntikirjanpito](https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/asteroids/dokumentaatio/tuntikirjanpito.md)
 - [Changelog](https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/asteroids/dokumentaatio/changelog.md)
 
