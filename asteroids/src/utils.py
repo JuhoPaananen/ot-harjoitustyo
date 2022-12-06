@@ -7,6 +7,9 @@ from pygame.math import Vector2
 
 dirname = os.path.dirname(__file__)
 
+def get_music_path(name):
+    path = f"{dirname}/assets/sounds/{name}.mp3"
+    return path
 
 def load_image(name):
     path = f"{dirname}/assets/images/{name}.png"

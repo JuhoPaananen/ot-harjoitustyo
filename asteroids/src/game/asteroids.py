@@ -3,7 +3,7 @@ import random
 import pygame
 import pygame.freetype
 from pygame import mixer
-from utils import load_image, load_font, load_sound, randomize_position
+from utils import load_image, load_font, load_sound, randomize_position, get_music_path
 from sprites.objects import Player, Asteroid, Bullet
 
 WHITE = (255, 255, 255)
@@ -31,7 +31,7 @@ class Asteroids:
         self.explosion_sound = load_sound("explosion")
         self.crash_sound = load_sound("Crash")
         # Music Copyright Kidd2Will, used only as a part of a school project
-        mixer.music.load("assets/sounds/Fire_Aura.mp3")
+        mixer.music.load(get_music_path("Fire_Aura"))  #assets/sounds/Fire_Aura.mp3")
         mixer.music.set_volume(0.7)
         mixer.music.play(-1)
 
