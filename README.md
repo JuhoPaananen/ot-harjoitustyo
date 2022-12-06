@@ -5,7 +5,7 @@ Pelin toiminta on testattu Python-versiolla 3.8
 
 ### Dokumentaatio
 - [Vaatimusmäärittely](https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/asteroids/dokumentaatio/vaatimusmaarittely.md)
-- [Arkkitehtuuri] (https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/asteroids/dokumentaatio/arkkitehtuuri.md)
+- [Arkkitehtuuri](https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/asteroids/dokumentaatio/arkkitehtuuri.md)
 - [Tuntikirjanpito](https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/asteroids/dokumentaatio/tuntikirjanpito.md)
 - [Changelog](https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/asteroids/dokumentaatio/changelog.md)
 
@@ -56,3 +56,5 @@ Tiedoston .pylintrc määrittelemät tarkistukset voi suorittaa komennolla:
 ```bash
 poetry run invoke lint
 ```
+### Huomio! Pelin musiikki
+Pelin taustalla soi Kidd2Will - Fire Aura, joka on luultavasti tekijänoikeuden alainen kappale. Tämän kouluprojektin tarkoituksena ei ole rikkoa kyseistä tekijänoikeutta, vaan harjoitella toimivan pelin luomista musiikkeineen.
