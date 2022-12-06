@@ -1,4 +1,5 @@
 # Asteroids peliprojekti
+Toteutetaan ohjelmistotekniikan kurssin harjoitustyönä Asteroids pelin ideaa mukaileva peli Pygamella.
 
 ### Huomio Python-versiosta
 Pelin toiminta on testattu Python-versiolla 3.8
@@ -8,6 +9,9 @@ Pelin toiminta on testattu Python-versiolla 3.8
 - [Arkkitehtuuri](https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/asteroids/dokumentaatio/arkkitehtuuri.md)
 - [Tuntikirjanpito](https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/asteroids/dokumentaatio/tuntikirjanpito.md)
 - [Changelog](https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/asteroids/dokumentaatio/changelog.md)
+
+## Releases
+- [Viikon 5 release](https://github.com/JuhoPaananen/ot-harjoitustyo/releases/tag/viikko5)
 
 ## Pelin asennus
 
