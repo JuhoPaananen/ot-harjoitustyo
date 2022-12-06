@@ -26,13 +26,16 @@ class FlyingObject():
 
 class Asteroid(FlyingObject):
     def __init__(self, position):
-        super().__init__(position, randomize_size(load_image("asteroid")), randomize_movement(ASTEROID_SPEED_MIN, ASTEROID_SPEED_MAX))
+        super().__init__(
+            position,
+            randomize_size(load_image("asteroid")),
+            randomize_movement(ASTEROID_SPEED_MIN, ASTEROID_SPEED_MAX))
         self.rotation = randomize_rotation()
         self.heading = Vector2(UP)
 
-    def check_collision(self, object):
-        self.distance = self.position.distance_to(object.position)
-        return self.distance < self.radius + object.radius # all objects, inc. rectangle spaceship is processed as a circle
+    def check_collision(self, other_object):
+        distance = self.position.distance_to(other_object.position)
+        return distance < self.radius + other_object.radius
 
     def draw(self, window):
         self.heading.rotate_ip(self.rotation)
@@ -71,10 +74,14 @@ class Player(FlyingObject):
 
     def accelerate(self):
         self.speed += self.heading * self.ACCELERATION
-        if self.speed.x > self.MAX_SPEED: self.speed.x = self.MAX_SPEED 
-        if self.speed.x < -self.MAX_SPEED: self.speed.x = -self.MAX_SPEED
-        if self.speed.y > self.MAX_SPEED: self.speed.y = self.MAX_SPEED
-        if self.speed.y < -self.MAX_SPEED: self.speed.y = -self.MAX_SPEED
+        if self.speed.x > self.MAX_SPEED:
+            self.speed.x = self.MAX_SPEED
+        if self.speed.x < -self.MAX_SPEED:
+            self.speed.x = -self.MAX_SPEED
+        if self.speed.y > self.MAX_SPEED:
+            self.speed.y = self.MAX_SPEED
+        if self.speed.y < -self.MAX_SPEED:
+            self.speed.y = -self.MAX_SPEED
 
     def draw(self, window):
         angle = self.heading.angle_to(UP)
@@ -82,5 +89,3 @@ class Player(FlyingObject):
         rotated_size = Vector2(rotated.get_size())
         draw_position = self.position - rotated_size * 0.5
         window.blit(rotated, draw_position)
-
-

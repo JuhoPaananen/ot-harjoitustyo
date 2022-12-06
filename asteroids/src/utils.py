@@ -24,15 +24,14 @@ def load_sound(name):
     return Sound(path)
 
 def keep_on_screen(position, width, height):
-    x, y = position
-    return Vector2(x % width, y % height)
+    x_position, y_position = position
+    return Vector2(x_position % width, y_position % height)
 
-def randomize_position(width, height):
-    #return Vector2(random.randrange(width), random.randrange(height))
+def randomize_position():
     return Vector2(random.randint(-10,10), random.randint(-10,10))
 
-def randomize_movement(min, max):
-    speed = random.randint(min, max)
+def randomize_movement(min_speed, max_speed):
+    speed = random.randint(min_speed, max_speed)
     heading = random.randrange(0,360)
     return Vector2(speed, 0).rotate(heading)
 
@@ -41,13 +40,13 @@ def randomize_rotation():
     return rotate_speed
 
 def randomize_size(image):
-    size_selector = random.choice([1,2,2,3]) # Random pick from three different sizes, 50% change for medium, 25% for small and large each
+    size_selector = random.choice([1,2,2,3])
     size = image.get_size()
     size_x = size[0]
     size_y = size[1]
-    if size_selector == 1: 
-        scale = 0.5 
-    elif size_selector == 3: 
-        scale = 2 
+    if size_selector == 1:
+        scale = 0.5
+    elif size_selector == 3:
+        scale = 2
     else: scale = 1
     return pygame.transform.scale(image, (size_x * scale, size_y * scale))
