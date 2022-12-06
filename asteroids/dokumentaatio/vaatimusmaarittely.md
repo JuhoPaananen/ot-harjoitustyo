@@ -22,20 +22,26 @@ Peli käynnistyy aloitusvalikkoon, josta on mahdollista käynnistää uusi peli,
 
 ### Pelin aikana
 Pelin ensimmäisessä versiossa on toteutettu seuraavat perustoiminnallisuudet
-- Pelaaja voi liikkua vapaasti pelialueella näppäimistön nuolinäppäimillä
-- Alus kiihtyy hiljalleen huippunopeuteensa ja jarrutus on niin ikään porrastettu
-- Pelialueen rajan ylittäminen johtaa siirtymiseen pelialueen toiselle reunalle
-- Asteroidit syntyvät satunnaisesti, liikkuvat satunnaisesti valitun lineaarisen linjan mukaisesti, ovat satunnaisen kokoisia
-- Asteroidit siirtyvät pelialueen toiseen reunaan ylittäessään pelialueen rajan
-- Pelaaja voi tuhota asteroideja ampumalla, pelaajalla on kerrallaan rajallinen määrä ammuksia käytössään
-- Pelaajan tuhotessa asteroidin, se hajoaa joko kokonaan (pienet asteroidit) tai pienemmeksi asteroideiksi (suuret asteroidit), joilla oma uusi lentoratansa.
-- Asteroidin osuminen pelaajan alukseen tuhoaa aluksen
+- Pelaaja voi liikkua vapaasti pelialueella näppäimistön nuolinäppäimillä - TEHTY
+- Alus kiihtyy hiljalleen huippunopeuteensa - TEHTY
+- Pelialueen rajan ylittäminen johtaa siirtymiseen pelialueen toiselle reunalle - TEHTY
+- Asteroidit syntyvät satunnaisesti, liikkuvat satunnaisesti valitun lineaarisen linjan mukaisesti, ovat satunnaisen kokoisia - TEHTY
+- Asteroidit siirtyvät pelialueen toiseen reunaan ylittäessään pelialueen rajan - TEHTY
+- Pelaaja voi tuhota asteroideja ampumalla, pelaajalla on kerrallaan rajallinen määrä ammuksia käytössään - TEHTY
+- Ammukset poistuvat pelistä päätyessään pelialueen rajojen ulkopuolelle - TEHTY
+- Pelaajan tuhotessa asteroidin, se hajoaa kokonaan - TEHTY
+- Asteroidin osuminen pelaajan alukseen vie pelaajalta yhden elämän, kolme osumaa tuhoaa aluksen - TEHTY
+- Pelissä on taustamusiikki - TEHTY
+- Ampumisella ja asteroidin tuhoutumisella on tehosteäänet - TEHTY
+
+### Pelin päättyessä
 - Pelin päättyessä pelaaja voi ilmoittaa nimensä/lempinimensä, joka talletetaan tuloslistaan ennen alkuvalikkoon palaamista
-- Pelissä on taustamusiikki
-- Ampumisella ja asteroidin tuhoutumisella on tehosteäänet
+- Pelaaja voi aloittaa uuden pelin tai palata aloitusvalikkoon
+
 
 ## Jatkokehitysideoita
 Pelin ensimmäistä versiota voidaan kehittää esim. seuraavilla ominaisuuksilla
+- Lisäämällä ominaisuus, jossa isot asteroidit hajoavat pienemmiksi asteroideiksi ja vaativat enemmän osumia
 - Lisäämällä peliin uusia aseita
 - Lisäämällä peliin erilaisia "vihollisia"
 - Lisäämällä peliin moninpelimahdollisuus, samalla koneella tai verkon yli
