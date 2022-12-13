@@ -11,14 +11,14 @@ Pelin ainoa käyttäjäryhmä on "pelaaja".
 
 ## Käyttöliittymä
 
-Peli käynnistyy aloitusvalikkoon, josta on mahdollista käynnistää uusi peli, tarkastella top-10 parhaita pisteitä sekä lukea ohjeita pelaamiseen.
+Peli käynnistyy aloitusvalikkoon, josta on mahdollista käynnistää uusi peli, tarkastella top-10 parhaita pisteitä sekä lukea ohjeita pelaamiseen. - TEHTY
 
 ## Pelin tarjoamat ominaisuudet
 
 ### Ennen pelaamista
-- Pelaaja voi tarkastella top-10 parhaita pisteitä
+- Pelaaja voi tarkastella top-10 parhaita pisteitä - TEHTY placeholder
 - Pelaaja voi lukea ohjeita pelaamiseen
-- Pelaaja voi käynnistää uuden pelin
+- Pelaaja voi käynnistää uuden pelin - TEHTY
 
 ### Pelin aikana
 Pelin ensimmäisessä versiossa on toteutettu seuraavat perustoiminnallisuudet
@@ -36,12 +36,12 @@ Pelin ensimmäisessä versiossa on toteutettu seuraavat perustoiminnallisuudet
 
 ### Pelin päättyessä
 - Pelin päättyessä pelaaja voi ilmoittaa nimensä/lempinimensä, joka talletetaan tuloslistaan ennen alkuvalikkoon palaamista
-- Pelaaja voi aloittaa uuden pelin tai palata aloitusvalikkoon
+- Pelaaja voi aloittaa uuden pelin tai palata aloitusvalikkoon - TEHTY
 
 
 ## Jatkokehitysideoita
 Pelin ensimmäistä versiota voidaan kehittää esim. seuraavilla ominaisuuksilla
-- Lisäämällä ominaisuus, jossa isot asteroidit hajoavat pienemmiksi asteroideiksi ja vaativat enemmän osumia
+- Lisäämällä ominaisuus, jossa isot asteroidit hajoavat pienemmiksi asteroideiksi ja vaativat enemmän osumia - TEHTY
 - Lisäämällä peliin uusia aseita
 - Lisäämällä peliin erilaisia "vihollisia"
 - Lisäämällä peliin moninpelimahdollisuus, samalla koneella tai verkon yli
