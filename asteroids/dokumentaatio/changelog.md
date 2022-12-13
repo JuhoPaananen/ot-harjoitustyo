@@ -21,4 +21,10 @@
 - Peli pääelementeiltään valmis: pelaaja voi lentää ja ampua, asteroidit tuhoutuvat osumista ja asteroideja luodaan satunnaisesti, osumista lasketaan pisteitä ja peli päättyy elämien loppuessa (kolmesta törmäyksestä)
 - Peliin on lisätty taustamusiikki ja äänitehosteet ampumiselle, asteroidin tuhoutumiselle ja törmäykselle
 - Peliin tullaan lisäämään vielä tietokanta top-5 pisteitä varten sekä käyttöliittymä pelin sisäiseen liikkumiseen.
-- 
+
+## Viikko 6
+- Käyttöliittymää kehitetty edelleen ja luotu valikot ohjelman ajonaikaiselle navigoinnille. Placeholder parhaiden pisteiden esittämiseksi.
+- Pelilogiikan eriyttämistä omaksi kokonaisuudeksi jatkettu irrottamalla äänienhallinta omaksi luokakseen (kiitos koodikatselmoinnin palautteenantajalle)
+- Asteroidit hajoavat nyt pienemmiksi siten, että suurin hajoaa kahdeksi keskikokoiseksi ja keskikokoinen kahdeksi pieneksi.
+- Testien lisääminen ja haaraumakattavuuden parantaminen. Testien kirjoittaminen helpottunut koodin kehittyessä.
+- Musiikin ja tehosteäänet saa nyt pois päältä
