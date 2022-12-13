@@ -13,5 +13,9 @@
 | 3.12. | 5 | Vaihtaminen Vector2 käyttöön liikkumisessa ja koko koodin muokkaukset, aluksen liikkumisen luonti |
 | 5.12. | 5 | Asteroidien ja ammuksien liikkuminen ja osumat|
 | 6.12. | 7 | Viimeistelyt ensimmäistä releasea varten, musiikin ja äänten lisäys sekä testien kirjoitus |
+| 10.12.| 7 | Käyttöliittymän toteutuksen aloittaminen.
+| 11.12.| 2 | Koodikatselmointi
+| 12.12 | 7 | Käyttöliittymän eriyttämisen viimeistely. Docstring-dokumentaatio. Pylint-mukainen koodin putsaus.
+| 13.12.| 7 | Uusi Soundplayer-luokka äänien käsittelyyn. Testien kirjoittaminen, dokumentaation päivykset ja uusi pakkausrakenne.
 ||||
-|Yht.   |47    |       |
+|Yht.   |70    |       |
