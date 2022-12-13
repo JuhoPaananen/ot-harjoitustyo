@@ -1,12 +1,10 @@
 from game.asteroids import AsteroidsGame
 
-
 def main():
     game = AsteroidsGame()
-    # add init settings
-    # add ui
-    game.gameloop()
-
+    while game.running:
+        game.curr_menu.show_menu()
+        game.gameloop()
 
 if __name__ == "__main__":
     main()
