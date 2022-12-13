@@ -11,14 +11,14 @@ from utils import (
     get_music_path,
     randomize_size
 )
-from sprites.objects import (
+from entities.objects import (
     Player,
     Bullet,
     LargeAsteroid,
     MediumAsteroid,
     SmallAsteroid
 )
-from game.menu import MainMenu, PauseMenu
+from ui.menu import MainMenu, PauseMenu
 
 WHITE = (255, 255, 255)
 WIDTH = 1028
