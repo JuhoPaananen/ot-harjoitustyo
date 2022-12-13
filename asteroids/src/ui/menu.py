@@ -1,7 +1,6 @@
 import sys
 import pygame
-from pygame import mixer
-from utils import load_image, load_sound
+from utils import load_image
 
 class Menu():
     def __init__(self, game):
@@ -14,9 +13,6 @@ class Menu():
         self.pointer_rect = self.pointer.get_rect()
         self.offset = -220
         self.up_key, self.down_key, self.enter_key, self.esc_key = False, False, False, False
-        self.move_sound = load_sound("whoosh.wav")
-        self.move_sound.set_volume(0.3)
-        self.click_sound = load_sound("click.wav")
 
     def blit_screen(self):
         self.game.window.blit(self.game.background_image, (0,0))
@@ -60,7 +56,7 @@ class MainMenu(Menu):
         self.reset_keys()
 
     def show_menu(self):
-        mixer.music.stop()
+        self.game.soundplayer.stop_music()
         self.run_menu = True
         while self.run_menu:
             self.check_menu_events()
@@ -69,7 +65,7 @@ class MainMenu(Menu):
 
     def move_pointer(self):
         if self.down_key:
-            mixer.Sound.play(self.move_sound)
+            self.game.soundplayer.play_move_effect()
             if self.state == "New game":
                 self.pointer_rect.center = (self.highscorex + self.offset, self.highscorey)
                 self.state = "High scores"
@@ -80,7 +76,7 @@ class MainMenu(Menu):
                 self.pointer_rect.center = (self.newgamex + self.offset, self.newgamey)
                 self.state = "New game"
         elif self.up_key:
-            mixer.Sound.play(self.move_sound)
+            self.game.soundplayer.play_move_effect()
             if self.state == "New game":
                 self.pointer_rect.center = (self.exitx + self.offset, self.exity)
                 self.state = "Exit"
@@ -94,11 +90,10 @@ class MainMenu(Menu):
     def check_input(self):
         self.move_pointer()
         if self.enter_key:
-            mixer.Sound.play(self.click_sound)
+            self.game.soundplayer.play_click_effect()
             if self.state == "New game":
-                #self.game.playing = True
                 self.game.initialize_game()
-                self.game.initialize_music()
+                self.game.soundplayer.play_music()
             elif self.state == "High scores":
                 self.game.curr_menu = HighScores(self.game)
             elif self.state == "Exit":
@@ -153,7 +148,7 @@ class PauseMenu(Menu):
 
     def move_pointer(self):
         if self.down_key:
-            mixer.Sound.play(self.move_sound)
+            self.game.soundplayer.play_move_effect()            
             if self.state == "Resume game":
                 self.pointer_rect.center = (self.menux + self.offset, self.menuy)
                 self.state = "Back to menu"
@@ -161,7 +156,7 @@ class PauseMenu(Menu):
                 self.pointer_rect.center = (self.resumex + self.offset, self.resumey)
                 self.state = "Resume game"
         elif self.up_key:
-            mixer.Sound.play(self.move_sound)
+            self.game.soundplayer.play_move_effect()
             if self.state == "Resume game":
                 self.pointer_rect.center = (self.menux + self.offset, self.menuy)
                 self.state = "Back to menu"
@@ -172,11 +167,11 @@ class PauseMenu(Menu):
     def check_input(self):
         self.move_pointer()
         if self.enter_key:
-            mixer.Sound.play(self.click_sound)
+            self.game.soundplayer.play_click_effect()
             if self.state == "Resume game":
                 self.game.playing = True
                 self.game.curr_menu = self.game.main_menu
             elif self.state == "Back to menu":
-                mixer.music.stop()
+                self.game.soundplayer.stop_music()
                 self.game.curr_menu = self.game.main_menu
             self.run_menu = False

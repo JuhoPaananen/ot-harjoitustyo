@@ -2,9 +2,10 @@ import unittest
 import pygame
 from pygame import mixer
 from pygame.math import Vector2
-from game.asteroids import AsteroidsGame
+from services.asteroids import AsteroidsGame
+from services.soundplayer import SoundPlayer
 from utils import load_image
-from sprites.objects import FlyingObject, Asteroid, LargeAsteroid, MediumAsteroid, SmallAsteroid, Bullet, Player
+from entities.objects import FlyingObject, Asteroid, LargeAsteroid, MediumAsteroid, SmallAsteroid, Bullet, Player
 from index import main
 
 
@@ -38,9 +39,9 @@ class TestAsteroidsGame(unittest.TestCase):
         self.assertEqual(self.game.is_gameover, True)
 
     def test_music_can_be_loaded_successfully(self):
-        self.game.initialize_music()
+        self.game.soundplayer.play_music()
         
-        self.assertEqual(mixer.music.get_busy(), True)
+        self.assertTrue(mixer.music.get_busy())
 
     def test_lives_set_correctly_when_game_initialized(self):
         self.game.lives = 2

@@ -1,4 +1,4 @@
-from game.asteroids import AsteroidsGame
+from services.asteroids import AsteroidsGame
 
 def main():
     game = AsteroidsGame()

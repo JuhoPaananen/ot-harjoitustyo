@@ -2,13 +2,11 @@ import sys
 import random
 import pygame
 import pygame.freetype
-from pygame import mixer
+from services.soundplayer import SoundPlayer
 from utils import (
     load_image,
     load_font,
-    load_sound,
     randomize_position,
-    get_music_path,
     randomize_size
 )
 from entities.objects import (
@@ -33,10 +31,8 @@ class AsteroidsGame:
     def __init__(self):
         """Luokan konstruktori, joka alustaa pelin tarvitsemat muuttujat
         """
-        pygame.mixer.pre_init(44100, -16, 4, 1024)
         pygame.init()
         pygame.freetype.init()
-        mixer.init()
         self.width = WIDTH
         self.height = HEIGHT
         self.running = True
@@ -47,27 +43,16 @@ class AsteroidsGame:
         pygame.display.set_caption("Asteroids project")
         self.background_image = pygame.transform.scale(
             load_image("milkyway"), (self.width, self.height))
-        self.spaceship = None #Player((self.width/2,self.height/2))
+        self.spaceship = None
         self.asteroids = []
         self.bullets = []
         self.score = None
         self.lives = None
-        self.blaster_sound = load_sound("LaserBlast.mp3")
-        self.blaster_sound.set_volume(0.5)
-        self.explosion_sound = load_sound("explosion.mp3")
-        self.crash_sound = load_sound("Crash.mp3")
         self.main_menu = MainMenu(self)
         self.pause_menu = PauseMenu(self)
         self.curr_menu = self.main_menu
         self.clock = pygame.time.Clock()
-
-    def initialize_music(self):
-        """Tuo pelin taustamusiikin käyttöön ja käynnistää sen soittamisen ikuisella loopilla
-        """
-        # Music Copyright Kidd2Will, used only as a part of a school project
-        mixer.music.load(get_music_path("Fire_Aura"))
-        mixer.music.set_volume(0.7)
-        mixer.music.play(-1)
+        self.soundplayer = SoundPlayer()
 
     def initialize_game(self):
         """Alustaa tarvittavat muuttujat uuteen pelisessioon /
@@ -103,10 +88,9 @@ class AsteroidsGame:
                     self.playing = False
                     self.curr_menu = self.pause_menu
                 if event.key == pygame.K_m:
-                    if mixer.music.get_busy():
-                        mixer.music.pause()
-                    else:
-                        mixer.music.unpause()
+                    self.soundplayer.pause_music()
+                if event.key == pygame.K_n:
+                    self.soundplayer.turn_sounds_on_off()
                 if self.spaceship and event.key == pygame.K_SPACE:
                     self.shoot()
                 if self.is_gameover and event.key == pygame.K_RETURN:
@@ -156,7 +140,7 @@ class AsteroidsGame:
         bullet_speed = self.spaceship.heading * BULLET_SPEED + self.spaceship.speed
         if len(self.bullets) < BULLETS:
             self.bullets.append(Bullet(self.spaceship.position,bullet_speed))
-            pygame.mixer.Sound.play(self.blaster_sound)
+            self.soundplayer.play_blaster_effect()
 
     def crash(self, asteroid):
         """Käsittelee pelaajan törmäyksen asteroidin kanssa
@@ -168,7 +152,7 @@ class AsteroidsGame:
         counter = 0
         if asteroid in self.asteroids:
             self.asteroids.remove(asteroid)
-        pygame.mixer.Sound.play(self.crash_sound)
+        self.soundplayer.play_crash_effect()
         while counter <= flash_speed:
             self.window.fill(WHITE)
             pygame.display.flip()
@@ -185,7 +169,7 @@ class AsteroidsGame:
             self.bullets.remove(bullet)
         if asteroid.is_destroyed():
             self.score += 1
-            pygame.mixer.Sound.play(self.explosion_sound)
+            self.soundplayer.play_explosion_effect()
             if asteroid in self.asteroids:
                 self.asteroids.remove(asteroid)
             if asteroid.get_size() == 2:
