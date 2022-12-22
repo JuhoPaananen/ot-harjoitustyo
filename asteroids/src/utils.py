@@ -7,6 +7,7 @@ from pygame.math import Vector2
 
 dirname = os.path.dirname(__file__)
 
+
 def get_music_path(name):
     """Palauttaa taustamuusikin absoluutisen sijainnin assets/sounds kansiosta
 
@@ -18,6 +19,7 @@ def get_music_path(name):
     """
     path = f"{dirname}/assets/sounds/{name}.mp3"
     return path
+
 
 def load_image(name):
     """Lataa haettavan kuvan assets/images suhteellisesta sijainnista
@@ -31,6 +33,7 @@ def load_image(name):
     path = f"{dirname}/assets/images/{name}.png"
     image = pygame.image.load(path)
     return image
+
 
 def load_font(name):
     """Lataa fontin käyttöön assets/font suhteellisesta sijainnista
@@ -46,6 +49,7 @@ def load_font(name):
     myfont = pygame.freetype.Font(path, font_size)
     return myfont
 
+
 def load_sound(name):
     """Lataa haettavan äänitehosteen suhteellisesta sijainnista assets/sounds
 
@@ -57,6 +61,7 @@ def load_sound(name):
     """
     path = f"{dirname}/assets/sounds/{name}"
     return Sound(path)
+
 
 def keep_on_screen(position, width, height):
     """Muodostaa uuden vektorisijainnin mikäli annetut rajat ylitetään /
@@ -73,13 +78,15 @@ def keep_on_screen(position, width, height):
     x_position, y_position = position
     return Vector2(x_position % width, y_position % height)
 
+
 def randomize_position():
     """Luo satunnaisen sijainnin pelialueen rajoilla
 
     Returns:
         pygame.Vector2: Satunnainen vektorisijainti pelialuuen rajalla
     """
-    return Vector2(random.randint(-10,10), random.randint(-10,10))
+    return Vector2(random.randint(-10, 10), random.randint(-10, 10))
+
 
 def randomize_movement(min_speed, max_speed):
     """Luo satunnaisen vektorin
@@ -93,8 +100,9 @@ def randomize_movement(min_speed, max_speed):
                         oleva pituus ja suunta välillä (0,360)
     """
     speed = random.randint(min_speed, max_speed)
-    heading = random.randrange(0,360)
+    heading = random.randrange(0, 360)
     return Vector2(speed, 0).rotate(heading)
+
 
 def randomize_rotation():
     """Luo satunnaisen pyörimisliikkeen
@@ -102,8 +110,9 @@ def randomize_rotation():
     Returns:
         int: Satunnainen pyörimisvauhti
     """
-    rotate_speed = random.randint(-3,3)
+    rotate_speed = random.randint(-3, 3)
     return rotate_speed
+
 
 def randomize_size():
     """Arpoo uuden asteroidin koon

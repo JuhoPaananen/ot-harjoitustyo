@@ -11,78 +11,80 @@ from utils import (
 )
 from entities.objects import (
     Player,
-    Bullet,
     LargeAsteroid,
     MediumAsteroid,
     SmallAsteroid
 )
-from ui.menu import MainMenu, PauseMenu
+from ui.menus import (
+    MainMenu,
+    PauseMenu,
+    InputScoreMenu
+)
 
 WHITE = (255, 255, 255)
-WIDTH = 1028
-HEIGHT = 768
+SCREEN_WIDTH = 1028
+SCREEN_HEIGHT = 768
 SAFE_DISTANCE = 100
-BULLETS = 3
-BULLET_SPEED = 8
 
 class AsteroidsGame:
     """Luokka, joka vastaa pelin logiikasta
     """
+
     def __init__(self):
         """Luokan konstruktori, joka alustaa pelin tarvitsemat muuttujat
         """
-        pygame.init()
-        pygame.freetype.init()
-        self.width = WIDTH
-        self.height = HEIGHT
+        self.width = SCREEN_WIDTH
+        self.height = SCREEN_HEIGHT
         self.running = True
         self.playing = False
         self.is_gameover = False
-        self.myfont = load_font("8-BIT WONDER.TTF")
+        self.myfont = load_font("prstartk.ttf")
         self.window = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption("Asteroids project")
         self.background_image = pygame.transform.scale(
             load_image("milkyway"), (self.width, self.height))
         self.spaceship = None
         self.asteroids = []
-        self.bullets = []
         self.score = None
-        self.lives = None
         self.main_menu = MainMenu(self)
         self.pause_menu = PauseMenu(self)
         self.curr_menu = self.main_menu
         self.clock = pygame.time.Clock()
         self.soundplayer = SoundPlayer()
 
-    def initialize_game(self):
+    def _initialize_game(self):
         """Alustaa tarvittavat muuttujat uuteen pelisessioon /
         ylikirjoittaa muuttujat edellisen pelisession jälkeen
         """
+        self.soundplayer.play_music()
         self.playing = True
         self.score = 0
-        self.lives = 3
-        self.spaceship = Player((self.width/2,self.height/2))
+        self.spaceship = Player((self.width/2, self.height/2))
         self.asteroids = []
-        for _ in range (10):
-            self.asteroid_factory(True)
+        for _ in range(10):
+            self._create_asteroids(True)
 
-    def stats(self):
+    def _draw_stats(self):
         """Kirjoittaa pelitilanteen tiedot peliruudulle
         """
+        if self.spaceship:
+            health = self.spaceship.get_health()
+        else:
+            health = 0
         score_text = f"Score  {self.score}"
-        lives_text = f"Lives  {self.lives}"
+        lives_text = f"Health  {health}"
         lives_rect = self.myfont.get_rect(lives_text, size=32)
         lives_rect.topright = self.width - 4, 4
         self.myfont.render_to(self.window, (4, 4), score_text, WHITE, size=32)
-        self.myfont.render_to(self.window, (lives_rect), lives_text, WHITE, size=32)
+        self.myfont.render_to(self.window, (lives_rect),
+                              lives_text, WHITE, size=32)
 
-    def event_handler(self):
+    def _handle_key_input(self):
         """Käsittelee pelaajan syötteet
         """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE and not self.is_gameover:
                     self.playing = False
@@ -92,9 +94,11 @@ class AsteroidsGame:
                 if event.key == pygame.K_n:
                     self.soundplayer.turn_sounds_on_off()
                 if self.spaceship and event.key == pygame.K_SPACE:
-                    self.shoot()
+                    if self.spaceship.shoot():
+                        self.soundplayer.play_blaster_effect()
                 if self.is_gameover and event.key == pygame.K_RETURN:
                     self.playing = False
+                    self.curr_menu = InputScoreMenu(self)
                     self.curr_menu.run_menu = True
                     self.is_gameover = False
 
@@ -108,17 +112,17 @@ class AsteroidsGame:
             if keys_pressed[pygame.K_UP]:
                 self.spaceship.accelerate()
 
-    def draw_game(self):
+    def _draw_game(self):
         """Piirtää peli-ikkunan tapahtumat
         """
         self.window.blit(self.background_image, (0, 0))
-        for obj in self.get_flying_objects():
+        for obj in self._get_flying_objects():
             obj.draw(self.window)
-        self.stats()
+        self._draw_stats()
         if self.is_gameover:
             self.draw_text("Game over", 64, self.width / 2, self.height / 2)
-            self.draw_text("Press ENTER to return to menu",
-                            24, self.width / 2, self.height / 2 + 50)
+            self.draw_text("Press ENTER to continue",
+                           24, self.width / 2, self.height / 2 + 50)
         pygame.display.flip()
 
     def draw_text(self, text, text_size, text_x, text_y):
@@ -130,19 +134,17 @@ class AsteroidsGame:
             text_x (int): Piirrettävän tekstin sijainti x-akselilla
             text_y (int): Piirrettävän tekstin sijainti y-akselilla
         """
-        text_rect = self.myfont.get_rect(text, size = text_size)
+        text_rect = self.myfont.get_rect(text, size=text_size)
         text_rect.center = (text_x, text_y)
-        self.myfont.render_to(self.window, (text_rect), text, WHITE, size = text_size)
+        self.myfont.render_to(self.window, (text_rect),
+                              text, WHITE, size=text_size)
 
-    def shoot(self):
-        """Ampuu, eli luo uuden ammuksen peliin
+    def start_new_game(self):
+        """Alustaa uuden pelitapahtuman
         """
-        bullet_speed = self.spaceship.heading * BULLET_SPEED + self.spaceship.speed
-        if len(self.bullets) < BULLETS:
-            self.bullets.append(Bullet(self.spaceship.position,bullet_speed))
-            self.soundplayer.play_blaster_effect()
+        self._initialize_game()
 
-    def crash(self, asteroid):
+    def _crash(self, asteroid):
         """Käsittelee pelaajan törmäyksen asteroidin kanssa
 
         Args:
@@ -158,15 +160,16 @@ class AsteroidsGame:
             pygame.display.flip()
             counter += 1
 
-    def hit(self, bullet, asteroid):
+    def _handle_bullet_hit(self, bullet, asteroid):
         """Käsittelee ammuksien osumat asteroidien kanssa
 
         Args:
             bullet (Bullet): Ammus, jolla tullut osuma, poistetaan pelistä
             asteroid (Asteroid): Asteroidi, johon on osuttu, poistetaan tai hajoitetaan pienemmäksi
         """
-        if bullet in self.bullets:
-            self.bullets.remove(bullet)
+
+        if bullet in self.spaceship.get_bullets():
+            self.spaceship.remove_bullet(bullet)
         if asteroid.is_destroyed():
             self.score += 1
             self.soundplayer.play_explosion_effect()
@@ -174,15 +177,17 @@ class AsteroidsGame:
                 self.asteroids.remove(asteroid)
             if asteroid.get_size() == 2:
                 for _ in range(3):
-                    self.asteroids.append(MediumAsteroid(asteroid.get_position()))
+                    self.asteroids.append(
+                        MediumAsteroid(asteroid.get_position()))
             elif asteroid.get_size() == 1:
                 for _ in range(2):
-                    self.asteroids.append(SmallAsteroid(asteroid.get_position()))
+                    self.asteroids.append(
+                        SmallAsteroid(asteroid.get_position()))
 
-    def run_game_logic(self):
+    def _run_game_logic(self):
         """Huolehtii pelilogiikasta
         """
-        for obj in self.get_flying_objects():
+        for obj in self._get_flying_objects():
             obj.move(self.width, self.height)
 
         if not self.spaceship:
@@ -190,34 +195,36 @@ class AsteroidsGame:
 
         for asteroid in self.asteroids:
             if asteroid.collides_with(self.spaceship):
-                self.lives -= 1
-                if self.lives > 0:
-                    self.crash(asteroid)
-                else:
-                    self.crash(asteroid)
+                if self.spaceship.is_destroyed():
+                    self._crash(asteroid)
                     self.spaceship = None
                     self.is_gameover = True
+                else:
+                    self._crash(asteroid)
                 break
 
-        for bullet in self.bullets[:]:
-            if not self.window.get_rect().collidepoint(bullet.position):
-                self.bullets.remove(bullet)
-            for asteroid in self.asteroids:
-                if asteroid.collides_with(bullet):
-                    self.hit(bullet, asteroid)
+        if self.spaceship:
+            for bullet in self.spaceship.get_bullets()[:]:
+                if not self.window.get_rect().collidepoint(bullet.get_position()):
+                    self.spaceship.remove_bullet(bullet)
+                for asteroid in self.asteroids:
+                    if asteroid.collides_with(bullet):
+                        self._handle_bullet_hit(bullet, asteroid)
 
-    def get_flying_objects(self):
+    def _get_flying_objects(self):
         """Palauttaa pelissä olevat objektit
 
         Returns:
             list: Lista asteroideista, ammuksista ja pelaajan aluksesta
         """
-        flying_objects = [*self.asteroids, *self.bullets]
+        flying_objects = [*self.asteroids]
         if self.spaceship:
             flying_objects.append(self.spaceship)
+            for bullet in self.spaceship.get_bullets():
+                flying_objects.append(bullet)
         return flying_objects
 
-    def asteroid_factory(self, init_phase=False):
+    def _create_asteroids(self, init_phase=False):
         """Luo satunnaisen kokoisia asteroideja satunnaisiin
         sijainteihin satunnaisella todennäköisyydellä
 
@@ -228,12 +235,11 @@ class AsteroidsGame:
         if self.is_gameover:
             return
         if not init_phase:
-            lottery = random.randrange(0,700)
-            if lottery > 5:
+            if random.randrange(0, 700) > 5:
                 return
         while True:
             position = randomize_position()
-            if position.distance_to(self.spaceship.position) > SAFE_DISTANCE:
+            if position.distance_to(self.spaceship.get_position()) > SAFE_DISTANCE:
                 break
         asteroid_size = randomize_size()
         if asteroid_size == "L":
@@ -244,12 +250,14 @@ class AsteroidsGame:
             new_asteroid = SmallAsteroid(position)
         self.asteroids.append(new_asteroid)
 
-    def gameloop(self):
+    def gameloop(self, testing=False):
         """Pyörittää peliä eteenpäin
         """
         while self.playing:
-            self.asteroid_factory()
-            self.event_handler()
-            self.run_game_logic()
-            self.draw_game()
+            self._create_asteroids()
+            self._handle_key_input()
+            self._run_game_logic()
+            self._draw_game()
             self.clock.tick(60)
+            if testing:
+                self.playing = False

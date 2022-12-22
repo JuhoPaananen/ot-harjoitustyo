@@ -6,10 +6,15 @@ from utils import load_image, keep_on_screen, randomize_movement, randomize_rota
 UP = Vector2(0, -1)
 ASTEROID_SPEED_MIN = 1
 ASTEROID_SPEED_MAX = 2
+BULLET_SPEED = 8
+PLAYER_MAX_SPEED = 10
+PLAYER_ROTATE_SPEED = 4
+PLAYER_ACCELERATION = 0.3
+MAX_BULLETS = 3
 PLAYER_HP = 3
-LASTEROID_HP = 3
-MASTEROID_HP = 2
-SASTEROID_HP = 1
+L_ASTEROID_HP = 3
+M_ASTEROID_HP = 2
+S_ASTEROID_HP = 1
 
 class FlyingObject():
     """Luokka, joka vastaa kaikkien lentävien objektien yhteisistä metodeista
@@ -56,6 +61,21 @@ class FlyingObject():
             int: Energiapisteet kokonaislukuna
         """
         return self.health
+
+    def get_position(self):
+        return self.position
+
+    def get_speed(self):
+        return self.speed
+
+    def is_destroyed(self) -> bool:
+        """Tarkistaa tuhotaanko objekti
+
+        Returns:
+            Bool: Totuusarvo, onko objekti tuhoutunut
+        """
+        self.health -= 1
+        return self.get_health() == 0
 
 class Asteroid(FlyingObject):
     """Luokka, joka vastaa asteroidien toiminnallisuuksista
@@ -105,25 +125,18 @@ class Asteroid(FlyingObject):
         draw_position = self.position - rotated_size * 0.5
         window.blit(rotated, draw_position)
 
-    def is_destroyed(self):
-        """Tarkistaa tuhotaanko asteroidi
+    def get_size(self) -> int:
+        """Palauttaa asteroidin koon
 
         Returns:
-            Bool: Totuusarvo, onko asteroidi tuhoutunut
+            int: Asteroidin koko kokonaislukuna
         """
-        self.health -= 1
-        return self.get_health() == 0
-
-    def get_position(self):
-        return self.position
-
-    def get_size(self):
         return self.size
 
 class LargeAsteroid(Asteroid):
     def __init__(self, position):
         super().__init__(position)
-        self.health = 3
+        self.health = L_ASTEROID_HP
         self.size = 2
         self.image = pygame.transform.scale(
             self.image,
@@ -133,7 +146,7 @@ class LargeAsteroid(Asteroid):
 class MediumAsteroid(Asteroid):
     def __init__(self, position):
         super().__init__(position)
-        self.health = 2
+        self.health = M_ASTEROID_HP
         self.size = 1
         self.image = pygame.transform.scale(
             self.image,
@@ -143,7 +156,7 @@ class MediumAsteroid(Asteroid):
 class SmallAsteroid(Asteroid):
     def __init__(self, position):
         super().__init__(position)
-        self.health = 1
+        self.health = S_ASTEROID_HP
         self.size = 0.5
         self.image = pygame.transform.scale(
             self.image,
@@ -155,42 +168,99 @@ class Bullet(FlyingObject):
         super().__init__(position, pygame.transform.scale(load_image("bullet"), (25,25)), speed)
 
     def move(self, width, height):
+        """Vastaa luodin liikuttamisesta
+
+        Args:
+            width (int): Saa argumenttina peli-ikkunan leveyden
+            height (int): Saa argumenttina peli-ikuunan korkeuden
+        """
         self.position = self.position + self.speed
 
 
 class Player(FlyingObject):
+    """Pelaajan aluksesta vastaava luokka
 
-    ROTATE_SPEED = 4
-    MAX_SPEED = 10
-    ACCELERATION = 0.3
-    BRAKING = 0.1
+    Args:
+        FlyingObject (_type_): Perii vanhempansa Flying Object metodit
+    """
 
     def __init__(self, position):
+        """Luokan konstruktori
+
+        Args:
+            position (Vector2): Argumenttina aluksen sijainti sen syntyessä peli-ikkunaan
+        """
         self.heading = Vector2(UP)
         super().__init__(position, load_image("spaceship"), Vector2(0))
+        self.health = PLAYER_HP
+        self.bullets = []
 
     def rotate_left(self):
-        angle = -self.ROTATE_SPEED
+        """Pyörittää alusta vasemmalle
+        """
+        angle = -PLAYER_ROTATE_SPEED
         self.heading.rotate_ip(angle)
 
     def rotate_right(self):
-        angle = self.ROTATE_SPEED
+        """Pyörittää alusta oikealle
+        """
+        angle = PLAYER_ROTATE_SPEED
         self.heading.rotate_ip(angle)
 
     def accelerate(self):
-        self.speed += self.heading * self.ACCELERATION
-        if self.speed.x > self.MAX_SPEED:
-            self.speed.x = self.MAX_SPEED
-        if self.speed.x < -self.MAX_SPEED:
-            self.speed.x = -self.MAX_SPEED
-        if self.speed.y > self.MAX_SPEED:
-            self.speed.y = self.MAX_SPEED
-        if self.speed.y < -self.MAX_SPEED:
-            self.speed.y = -self.MAX_SPEED
+        """Kiihdyttää alusta aluksen osoittamaan suuntaan
+        """
+        self.speed += self.heading * PLAYER_ACCELERATION
+        self.speed.x = min(self.speed.x, PLAYER_MAX_SPEED)
+        self.speed.x = max(self.speed.x, -PLAYER_MAX_SPEED)
+        self.speed.y = min(self.speed.y, PLAYER_MAX_SPEED)
+        self.speed.y = max(self.speed.y, -PLAYER_MAX_SPEED)
 
     def draw(self, window):
+        """Piirtää aluksen
+
+        Args:
+            window (pygame.surface): Saa argumentikseen peli-ikkunan, johon piirretään
+        """
         angle = self.heading.angle_to(UP)
         rotated = rotozoom(self.image, angle, 1.0)
         rotated_size = Vector2(rotated.get_size())
         draw_position = self.position - rotated_size * 0.5
         window.blit(rotated, draw_position)
+
+    def shoot(self):
+        """Ampuu uuden ammuksen, mikäli kaikkia ammuksia ei ole käytetty
+
+        Returns:
+            bool: Palauttaa True mikäli ammus ammuttu, muuten False
+        """
+        bullet_speed = self.get_heading() * BULLET_SPEED + self.get_speed()
+        if len(self.bullets) < MAX_BULLETS:
+            self.bullets.append(Bullet(self.get_position(), bullet_speed))
+            return True
+        return False
+
+    def get_heading(self):
+        """Palauttaa aluksen suunnan
+
+        Returns:
+            Vector2: palauttaa Vector2 vektorin
+        """
+        return self.heading
+
+    def remove_bullet(self, bullet):
+        """Poistaa ammuksen pelistä
+
+        Args:
+            bullet (Bullet): Poistettava ammus
+        """
+        if bullet in self.bullets:
+            self.bullets.remove(bullet)
+
+    def get_bullets(self):
+        """Palauttaa listan ammuksista
+
+        Returns:
+            list: Pelissä olevat ammukset listana
+        """
+        return self.bullets
