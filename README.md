@@ -16,14 +16,15 @@ Pelin toiminta on testattu Python-versiolla 3.8
 - [Viikon 5 release](https://github.com/JuhoPaananen/ot-harjoitustyo/releases/tag/viikko5)
 
 ## Pelin asennus
-
-1. Asenna riippuvuudet komennolla:
+1. Lataa pelin viimeisin versio ylhäältä kohdasta **Releases**
+2. Pura lataamasi .zip/.tar.gz.
+3. Asenna riippuvuudet komennolla:
 
 ```bash
 poetry install
 ```
 
-2. Käynnistä sovellus komennolla:
+4. Käynnistä sovellus komennolla:
 
 ```bash
 poetry run invoke start
