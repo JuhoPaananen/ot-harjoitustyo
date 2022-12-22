@@ -17,5 +17,8 @@
 | 11.12.| 2 | Koodikatselmointi
 | 12.12 | 7 | Käyttöliittymän eriyttämisen viimeistely. Docstring-dokumentaatio. Pylint-mukainen koodin putsaus.
 | 13.12.| 7 | Uusi Soundplayer-luokka äänien käsittelyyn. Testien kirjoittaminen, dokumentaation päivykset ja uusi pakkausrakenne.
+| 20.12.| 4 | Unittest opiskelu testien toteuttamiseksi, testien laajentaminen
+| 21.12.| 4 | Ammusten hallinnan (Bullet-luokan olioiden) hallinnan siirtäminen AsteroidsGame-luokalta Player-luokalle
+| 22.12.| 6 | Loput testit ja dokumentaation viilaukset, sovelluksen loppupalautus
 ||||
-|Yht.   |70    |       |
+|Yht.   |84    |       |
