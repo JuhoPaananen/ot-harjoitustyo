@@ -28,3 +28,11 @@
 - Asteroidit hajoavat nyt pienemmiksi siten, että suurin hajoaa kahdeksi keskikokoiseksi ja keskikokoinen kahdeksi pieneksi.
 - Testien lisääminen ja haaraumakattavuuden parantaminen. Testien kirjoittaminen helpottunut koodin kehittyessä.
 - Musiikin ja tehosteäänet saa nyt pois päältä
+
+## Viikko 7
+- Lisätty pisteiden pysyväistallennus, joten pisteet voidaan nyt tallentaa ja niitä voidaan tarkastella pelissä
+- Siirretty ampumismetodi ja ammustenhallinta Player-luokan vastuulle.
+- Koodin siistimistä
+- Lisätty valikkonäkymä näppäinohjeille
+- Lisätty testejä ja laajenettu testikattavuutta
+- Täydennetty dokumentaatiota
