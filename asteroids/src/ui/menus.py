@@ -137,11 +137,15 @@ class HighScoresMenu(Menu):
         self.game.window.blit(self.game.background_image, (0, 0))
         self.game.draw_text("High scores", 45, self.midx, self.midy - 100)
         for i in range(min(10, len(self.high_scores))):
-            if self.high_scores[i][0] is not None:
-                name = self.high_scores[i][0]
-                score = self.high_scores[i][1]
-                self.game.draw_text(
-                    f"{i+1: >2} {name: <20} {score: >5}", 25, self.midx, self.midy + i*30)
+            try:
+                if self.high_scores[i][0] is not None and len(self.high_scores) != 0:
+                    name = self.high_scores[i][0]
+                    score = self.high_scores[i][1]
+                    self.game.draw_text(
+                        f"{i+1: >2} {name: <20} {score: >5}", 25, self.midx, self.midy + i*30)
+            except IndexError:
+                print("No highscores to show you yet. Play your first game! Press ESC to return to main menu.")
+                break
         pygame.display.update()
         self._reset_keys()
 

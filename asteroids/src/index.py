@@ -8,7 +8,7 @@ def main():
     while game.running:
         game.curr_menu.show_menu()
         game.gameloop()
-      
+
     pygame.quit()
     print("Thank you for playing!")
 

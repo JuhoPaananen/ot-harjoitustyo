@@ -45,7 +45,10 @@ class HighScoresRepository:
 
         file.close()
 
-        scores.sort(key=lambda a: int(a[1]), reverse=True)
+        try:
+            scores.sort(key=lambda a: int(a[1]), reverse=True)
+        except IndexError:
+            print("No high scores yet to sort for you. Play few games and come back again.")
 
         return scores
 
