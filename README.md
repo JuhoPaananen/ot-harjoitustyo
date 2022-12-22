@@ -13,7 +13,7 @@ Pelin toiminta on testattu Python-versiolla 3.8
 - [Testausdokumentti](https://github.com/JuhoPaananen/ot-harjoitustyo/blob/main/asteroids/dokumentaatio/testaus.md)
 
 ## Releases
-- [Viikon 7 release - Loppupalautus]
+- [Viikon 7 release - Loppupalautus](https://github.com/JuhoPaananen/ot-harjoitustyo/releases/tag/viikko7)
 - [Viikon 6 release](https://github.com/JuhoPaananen/ot-harjoitustyo/releases/tag/viikko6)
 - [Viikon 5 release](https://github.com/JuhoPaananen/ot-harjoitustyo/releases/tag/viikko5)
 
